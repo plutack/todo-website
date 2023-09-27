@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ToDo List</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+      integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <script defer src="scripts/script.js"></script>
+    <script defer src="/reload/reload.js"></script>
+  </head>
+  <body>
+    <div class="main-container">
+      <h1 class="date-container"><%= presentDate %></h1>
+      <div class="list-container">
+        <div class="list">
+          <% taskList.forEach((task, index) =>{ %>
+          <div class="task">
+            <input type="checkbox" id="task<%=index %>" />
+            <h2 class=""><%= task.taskTitle %></h2>
+            <button class="delete" type="button" data-task-id="<%=task._id %>">
+              <i class="fa-solid fa-xmark"></i>
+            </button>
+          </div>
+          <% }) %>
+        </div>
+        <form action="/" method="post">
+          <input
+            type="text"
+            placeholder="New task"
+            name="newTask"
+            autocomplete="off"
+          />
+          <button type="submit">
+            <i class="fa-solid fa-plus"></i>
+          </button>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>
