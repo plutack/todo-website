@@ -22,7 +22,7 @@
         <div class="list">
           <% taskList.forEach((task, index) =>{ %>
           <div class="task">
-            <input type="checkbox" id="task<%=index %>" />
+            <input type="checkbox" id="task<%=index %>" <% if (task.isCompleted === true){%> checked <%} %>/>
             <h2 class=""><%= task.taskTitle %></h2>
             <button class="delete" type="button" data-task-id="<%=task._id %>">
               <i class="fa-solid fa-xmark"></i>
