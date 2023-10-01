@@ -12,11 +12,27 @@ app.use(express.static('files'), bodyParser.urlencoded({ extended: true }));
 
 // Define variables
 const { Today } = require(path.join(__dirname, 'files/module/date.js'));
-const { connectToDB, savetoDB, retrieveDB, deleteFromDB } = require(path.join(
-  __dirname,
-  'files/module/dbFunction.js'
-));
-const port = 3000
+const {
+  connectToDB,
+  savetoDB,
+  retrieveDB,
+  deleteFromDB,
+  updateStatusInDB,
+} = require(path.join(__dirname, 'files/module/dbFunction.js'));
+const port = 3000;
+
+app.patch('/api/tasks/:taskID', async (req, res) => {
+  let taskID = req.params.taskID;
+  let { isCompleted } = req.query;
+  console.log(taskID);
+  console.log(isCompleted);
+  try {
+    await updateStatusInDB(isCompleted, taskID);
+    res.sendStatus(200);
+  } catch (err) {
+    console.log(err);
+  }
+});
 
 app.delete('/api/tasks/:taskID', async (req, res) => {
   let taskID = req.params.taskID;
@@ -28,7 +44,6 @@ app.delete('/api/tasks/:taskID', async (req, res) => {
   }
 });
 
-connectToDB();
 
 app.get('/', async (req, res) => {
   let presentDate = Today();
@@ -42,5 +57,6 @@ app.post('/', async (req, res) => {
   res.redirect('/');
 });
 
+connectToDB();
 app.listen(port, () => console.log(`server started on port ${port}`));
 reload(app);
