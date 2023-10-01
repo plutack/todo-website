@@ -45,3 +45,11 @@ exports.deleteFromDB = async (taskID) => {
     console.log(`error: ${err}`);
   }
 };
+exports.updateStatusInDB = async(isCompleted, taskID) =>{
+  try {
+    await Task.findByIdAndUpdate(taskID, {isCompleted: isCompleted});
+    console.log('updated sucessfully');
+  } catch (err) {
+    console.log(`error: ${err}`);
+  }
+}
