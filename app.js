@@ -19,7 +19,7 @@ const {
   deleteFromDB,
   updateStatusInDB,
 } = require(path.join(__dirname, 'files/module/dbFunction.js'));
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 app.patch('/api/tasks/:taskID', async (req, res) => {
   let taskID = req.params.taskID;
@@ -43,7 +43,6 @@ app.delete('/api/tasks/:taskID', async (req, res) => {
     console.log(err);
   }
 });
-
 
 app.get('/', async (req, res) => {
   let presentDate = Today();
